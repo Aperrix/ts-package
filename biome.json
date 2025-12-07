@@ -1,0 +1,67 @@
+{
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": "on",
+                "useSortedAttributes": "on",
+                "useSortedKeys": "on",
+                "useSortedProperties": "on"
+            }
+        },
+        "enabled": true,
+        "includes": ["**", "!package.json", "!tsconfig.json", "!.vscode/*"]
+    },
+    "files": {
+        "includes": ["**", "!**/dist"]
+    },
+    "formatter": {
+        "enabled": true,
+        "formatWithErrors": true,
+        "useEditorconfig": true
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "double",
+            "semicolons": "asNeeded"
+        },
+        "parser": {
+            "unsafeParameterDecoratorsEnabled": true
+        }
+    },
+    "json": {
+        "parser": {
+            "allowComments": true
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "complexity": {
+                "noForEach": "error",
+                "useLiteralKeys": "off"
+            },
+            "recommended": true,
+            "style": {
+                "noCommonJs": "error",
+                "noEnum": "error",
+                "useImportType": {
+                    "level": "error",
+                    "options": {
+                        "style": "separatedType"
+                    }
+                }
+            },
+            "suspicious": {
+                "noConsole": "error",
+                "noExplicitAny": "error"
+            }
+        }
+    },
+    "vcs": {
+        "clientKind": "git",
+        "defaultBranch": "main",
+        "enabled": true,
+        "useIgnoreFile": true
+    }
+}

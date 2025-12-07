@@ -1,0 +1,8 @@
+telemetry = false
+
+[install.security]
+scanner = "@bun-security-scanner/osv"
+
+[test]
+root = "tests"
+coverage = true

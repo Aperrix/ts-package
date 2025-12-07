@@ -1,0 +1,17 @@
+{
+    "recommendations": [
+        // general extensions
+        "aaron-bond.better-comments",
+        "biomejs.biome",
+        "oven.bun-vscode",
+        "usernamehw.errorlens",
+        "shardulm94.trailing-spaces",
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint",
+        "redhat.vscode-yaml",
+        "streetsidesoftware.code-spell-checker",
+        "bierner.markdown-mermaid",
+        "remcohaszing.schemastore",
+        "tamasfe.even-better-toml"
+    ]
+}
