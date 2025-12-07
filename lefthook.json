@@ -1,0 +1,74 @@
+{
+    "$schema": "./node_modules/lefthook/schema.json",
+    "commit-msg": {
+        "jobs": [
+            {
+                "name": "Validate commit message format",
+                "run": "bunx --bun commitlint --edit {1}"
+            }
+        ]
+    },
+    "pre-commit": {
+        "jobs": [
+            {
+                "name": "Clean unused code",
+                "run": "bunx --bun knip --fix"
+            },
+            {
+                "group": {
+                    "jobs": [
+                        {
+                            "glob": ["*.md"],
+                            "name": "Markdown",
+                            "run": "bunx markdownlint-cli2 --config .markdownlint.json --fix {staged_files}",
+                            "stage_fixed": true
+                        },
+                        {
+                            "glob": ["*.yml", "*.yaml"],
+                            "name": "YAML",
+                            "run": "bunx --bun prettier --write {staged_files}",
+                            "stage_fixed": true
+                        },
+                        {
+                            "name": "Others",
+                            "run": "bunx --bun @biomejs/biome check --write --unsafe --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}",
+                            "stage_fixed": true
+                        }
+                    ],
+                    "parallel": true
+                },
+                "name": "Lint files"
+            },
+            {
+                "name": "Sort package.json",
+                "run": "bunx --bun sort-package-json",
+                "stage_fixed": true
+            },
+            {
+                "name": "Type checking",
+                "run": "bunx tsc --noEmit"
+            }
+        ],
+        "parallel": false
+    },
+    "pre-push": {
+        "jobs": [
+            {
+                "name": "Validate branch name",
+                "run": "bunx validate-branch-name -r \"^(main|develop|next)$|^(feature|chore|(bug|hot)fix)/(?:(?=issue)issue-[0-9]+-[a-z0-9]+|(?!issue)[a-z0-9]+)(-[a-z0-9]+)*$|^release\/v((0|[1-9][0-9]*)\\.){2}(0|[1-9][0-9]*)$\""
+            }
+        ]
+    },
+    "prepare-commit-msg": {
+        "jobs": [
+            {
+                "env": {
+                    "LEFTHOOK": "0"
+                },
+                "interactive": true,
+                "name": "Execute commitizen CLI",
+                "run": "bunx --bun czg --hook"
+            }
+        ]
+    }
+}

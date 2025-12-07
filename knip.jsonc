@@ -1,0 +1,22 @@
+{
+    "$schema": "https://unpkg.com/knip@latest/schema.json",
+    "entry": ["src/index.ts"],
+    "ignore": ["**/*.test.ts", "**/*.spec.ts"],
+    "ignoreBinaries": [
+        "tsc" // Binary from typescript peer dependency, used in package.json typecheck script
+    ],
+    "ignoreDependencies": [
+        "@tsconfig/bun", // Used in tsconfig.json extends (not detected by static analysis)
+        "@commitlint/cli", // Used by lefthook in commit-msg hook (lefthook.json)
+        "conventional-changelog-conventionalcommits", // Used by semantic-release as preset (dynamically loaded in .releaserc.json)
+        "@bun-security-scanner/osv" // Used by bun as security scanner (bunfig.toml)
+    ],
+    "ignoreExportsUsedInFile": true,
+    "project": ["src/**/*.ts"],
+    "workspaces": {
+        ".": {
+            "entry": ["src/index.ts"],
+            "project": ["src/**/*.ts"]
+        }
+    }
+}
